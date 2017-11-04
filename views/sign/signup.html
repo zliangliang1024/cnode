@@ -1,0 +1,61 @@
+<%- layout('layout')%>
+<%- partial('sidebar')%>
+<div id="content">
+    <div class="panel">
+        <div class="header">
+            <ul class="breadcrumb">
+                <li><a href="/">主页<span class="divider">/</span></a></li>
+                <li>注册</li>
+            </ul>
+        </div>
+        <div class="inner">
+            <% if(typeof(error)!=='undefined' && error) { %>
+            <div class="alert alert-error">
+                <a href="#" class="close" data-dismiss="alert">
+                    &times;
+                </a>
+                <strong><%= error %></strong>
+            </div>
+            <% } %>
+            <% if(typeof(success)!=='undefined' && success) { %>
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert">
+                    &times;
+                </a>
+                <strong><%= success %></strong>
+            </div>
+            <% } %>
+            <form class="form-horizontal" id="signup_form" action="/signup" method="post">
+                <div class="control-group">
+                    <label class="control-label" for="login_name">用户名</label>
+                    <div class="controls">
+                        <input class="input-xlarge" id="login_name" name="login_name" type="text">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="login_pwd">密码</label>
+                    <div class="controls">
+                        <input class="input-xlarge" id="login_pwd" name="login_pwd" type="password">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="login_repwd">确认密码</label>
+                    <div class="controls">
+                        <input class="input-xlarge" id="login_repwd" name="login_repwd" type="password">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="login_email">邮箱地址</label>
+                    <div class="controls">
+                        <input class="input-xlarge" id="login_email" name="login_email" type="email">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <input type="submit" class="span-primary" value="提交"/>
+                    <input type="reset" class="span-info" value="重置"/>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

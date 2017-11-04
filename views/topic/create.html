@@ -1,0 +1,58 @@
+<%- layout("layout") %>
+<div id="content">
+    <div class="panel">
+        <div class="header">
+            <ul class="breadcrumb">
+                <li><a href="/">主页<span class="divider">/</span></a></li>
+                <li>发表话题</li>
+            </ul>
+        </div>
+        <div class="inner">
+            <% if(typeof(error)!=='undefined' && error) { %>
+            <div class="alert alert-error">
+                <a href="#" class="close" data-dismiss="alert">
+                    &times;
+                </a>
+                <strong><%= error %></strong>
+            </div>
+            <% } %>
+            <% if(typeof(success)!=='undefined' && success) { %>
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert">
+                    &times;
+                </a>
+                <strong><%= success %></strong>
+            </div>
+            <% } %>
+            <form id="create_topic_form" method="post" action="/topic/create">
+                <span class="tab-select">选择模块：</span>
+                <select name="tab" id="tab-value">
+                    <option value="default">请选择</option>
+                    <option value="tab1">板块1</option>
+                    <option value="tab2">板块2</option>
+                </select><br>
+                <input class="span9" type="text" id="topic_title" name="topic_title" placeholder="请输入标题（10字以上）"/>
+                <div class="markdown_editor in_editor">
+                    <div class="markdown_in_editor">
+                        <textarea name="t_content" class="editor" cols="20" rows="10"></textarea>
+                        <div class="editor_buttons">
+                            <input class="span-primary submit_button" type="submit" value="提交"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="/public/libs/webuploader/webuploader.css">
+<link rel="stylesheet" href="/public/libs/editor/editor.css">
+<script src="/public/libs/markdownit.js"></script>
+<script src="/public/libs/webuploader/webuploader.withoutimage.js"></script>
+<script src="/public/libs/editor/editor.js"></script>
+<script src="/public/libs/editor/ext.js"></script>
+<script>
+    $(function () {
+        var editor = new Editor();
+        editor.render($(".editor")[0]);
+    })
+</script>
