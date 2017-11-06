@@ -642,6 +642,7 @@ a.topic_title {
 .topic_title_wrapper {
     text-overflow: ellipsis;
     white-space: nowrap;
+    padding-left: 40px;
 }
 
 .put_top,
