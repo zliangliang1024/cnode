@@ -71,7 +71,7 @@ exports.signin = function (req, res) {
     UserModel.getUser(username, userpwd, function (err, user) {
         if (user) {
             req.session.user = user;
-            res.render('sign/signin', {success: "登陆成功!"});
+            return res.redirect("/");
         } else {
             res.render('sign/signin', {error: "用户名或密码错误!"});
         }

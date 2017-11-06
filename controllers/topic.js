@@ -24,7 +24,7 @@ exports.topicCreate = function (req, res) {
         title: title,
         content: content,
         tab: tab,
-        by_user: req.session.user,
+        by_user: req.session.user.username,
         create_time: new Date()
     };
 

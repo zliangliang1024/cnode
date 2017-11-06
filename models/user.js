@@ -9,7 +9,7 @@ var UserScehma = new mongoose.Schema({
 });
 
 UserScehma.statics.getUserBySignupInfo = function (username, useremail, callback) {
-    var cond = ["$or", {username: username}, {useremail: useremail}];
+    var cond = {"$or":[{username: username}, {useremail: useremail}]};
     this.find(cond, callback);
 };
 

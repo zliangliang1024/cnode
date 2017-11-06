@@ -36,7 +36,7 @@ app.use(session({
 }));
 app.use(function (req, res, next) {
     app.locals.cur_user = req.session.user;
-    console.log(JSON.stringify(app.locals.cur_user));
+    // console.log(JSON.stringify(app.locals.cur_user));
     next();
 });
 app.locals.config = config;
