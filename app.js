@@ -9,6 +9,10 @@ var session = require("express-session");
 var RedisStore = require("connect-redis")(session);
 var webRoutes = require('./routes/web_routes');
 var config = require("./config");
+var MarkDownIt = require("markdown-it");
+var busboy = require("connect-busboy");
+var md = new MarkDownIt();
+
 
 var app = express();
 
@@ -34,11 +38,13 @@ app.use(session({
     saveUninitialized: true
 
 }));
+app.use(busboy());
 app.use(function (req, res, next) {
     app.locals.cur_user = req.session.user;
     // console.log(JSON.stringify(app.locals.cur_user));
     next();
 });
+app.locals.md = md;
 app.locals.config = config;
 app.use("/", webRoutes);
 

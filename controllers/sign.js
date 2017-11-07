@@ -1,5 +1,5 @@
 var EventProxy = require("eventproxy");
-var UserModel = require("../models/user");
+var UserModel = require("../models/UserModel");
 
 /***
  * 登录相关的控制器

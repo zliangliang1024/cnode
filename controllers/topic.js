@@ -1,5 +1,9 @@
 var validator = require("validator");
 var TopicModel = require("../models/TopicModel");
+var ReplyModel = require("../models/ReplyModel");
+var EventProxy = require("eventproxy");
+var Tool = require("../utils/tools");
+var _ = require("lodash");
 
 exports.showTopicCreate = function (req, res) {
     res.render("topic/create");
@@ -37,4 +41,42 @@ exports.topicCreate = function (req, res) {
         }
     });
 
+};
+
+exports.detail = function (req, res) {
+    var topicId = req.params.tid;
+    var ep = new EventProxy();
+    TopicModel.getTopic(topicId, function (err, topic) {
+        if (err) {
+            console.log("Get Topic Error: " + err);
+            ep.emit("topic_data_ok", {topic: "XXX", by_user: "XXX", formatStr: "XXX"});
+            return;
+        }
+        topic.formatStr = Tool.formatTime(topic.create_time);
+        ep.emit("topic_data_ok", topic);
+    });
+    ReplyModel.count({topic_id: topicId}, function (err, replyCount) {
+        if (err) {
+            console.log("Get replyCount Error: " + err);
+            ep.emit("reply_count_ok", 0);
+            return;
+        }
+        ep.emit("reply_count_ok", replyCount);
+    });
+    ReplyModel.getReplys({topic_id: topicId}, function (err, replys) {
+        if (err) {
+            console.log("Get replys Error: " + err);
+            ep.emit("reply_data_ok", [{error: true}]);
+            return;
+        }
+        replys = _.map(replys, function (item) {
+            item.formatStr = Tool.formatTime(item.reply_time);
+            return item;
+        });
+        console.log("replys: " + replys);
+        ep.emit("reply_data_ok", replys);
+    });
+    ep.all("topic_data_ok", "reply_count_ok", "reply_data_ok", function (topic, replyCount, replys) {
+        res.render("topic/details", {topic: topic, replyCount: replyCount, replys: replys});
+    });
 };

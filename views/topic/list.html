@@ -1,0 +1,11 @@
+<div class="cell">
+    <span class="user_name pull-left"><%= topic.by_user %></span>
+    <a class="last_time pull-right">
+        <span class="last_active_time"><%= topic.formatStr %></span>
+    </a>
+
+    <div class="topic_title_wrapper">
+        <span class="topiclist-tab"><%= tab%></span>
+        <a href="/topic/<%= topic._id %>" class="topic_title"><%= topic.title %></a>
+    </div>
+</div>

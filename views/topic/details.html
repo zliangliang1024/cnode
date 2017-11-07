@@ -1,0 +1,66 @@
+<% layout("layout")%>
+<div id="content">
+    <div class="panel">
+        <div class="header topic_header">
+            <span class="topic_full_title"><%= topic.title%></span>
+            <div class="changes">
+                <span>作者：<%= topic.by_user%></span>
+                <span>发布时间：<%= topic.formatStr%></span>
+                <span>来自于 <strong class="topiclist-tab"><%= topic.tab%></strong></span>
+            </div>
+        </div>
+        <div class="inner topic">
+            <div class="topic_content">
+                <%- md.render(topic.content) %>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="header">
+            <span><%= replyCount %>个回复</span>
+        </div>
+        <div class="inner">
+            <%- partial("./reply/list",{collection:replys,as:'reply'})%>
+        </div>
+    </div>
+    <% if(typeof(error)!=='undefined' && error) { %>
+    <div class="alert alert-error">
+        <a href="#" class="close" data-dismiss="alert">
+            &times;
+        </a>
+        <strong><%= error %></strong>
+    </div>
+    <% } %>
+    <div class="panel">
+        <div class="header">
+            <span>添加回复</span>
+        </div>
+        <div class="inner reply">
+            <form id="reply_form" method="post" action="/reply/reply">
+                <input class="span9" type="hidden" name="topicId" id="topicId" value="<%= topic._id %>"/>
+                <div class="markdown_editor in_editor">
+                    <div class="markdown_in_editor">
+                        <textarea name="reply_content" class="editor" id="reply_content" cols="20" rows="10"></textarea>
+                        <div class="editor_buttons">
+                            <input class="span-primary submit_button" id="reply_button" type="submit" value="回复"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="/public/libs/webuploader/webuploader.css">
+<link rel="stylesheet" href="/public/libs/editor/editor.css">
+<script src="/public/libs/markdownit.js"></script>
+<script src="/public/libs/webuploader/webuploader.withoutimage.js"></script>
+<script src="/public/libs/editor/editor.js"></script>
+<script src="/public/libs/editor/ext.js"></script>
+<script type="application/javascript">
+
+    $(function () {
+        var editor = new Editor();
+        editor.render($(".editor")[0]);
+    });
+</script>

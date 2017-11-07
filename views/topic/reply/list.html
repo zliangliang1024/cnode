@@ -1,0 +1,15 @@
+<div id="cell">
+    <% if(reply && reply.error){%>
+    <span class="reply_author">XXX</span>
+    <span class="reply_time">xxx</span>
+    <div class="reply_content">
+        评论内容XXX
+    </div>
+    <% } else { %>
+    <span class="reply_author"><%= reply.reply_user%></span>
+    <span class="reply_time"><%= reply.formatStr%></span>
+    <div class="reply_content">
+        <%- md.render(reply.reply_content)%>
+    </div>
+    <% }%>
+</div>

@@ -14,8 +14,12 @@ TopicSchema.statics.createTopic = function (topicPo, callback) {
     this.create(topicPo, callback);
 };
 
-TopicSchema.statics.getTopics = function (query, option,callback) {
+TopicSchema.statics.getTopics = function (query, option, callback) {
     this.find(query, option, callback);
+};
+
+TopicSchema.statics.getTopic = function (tid, callback) {
+    this.findOne({_id: tid}, callback);
 };
 
 module.exports = db.model("TopicModel", TopicSchema);
