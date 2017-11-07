@@ -15,7 +15,7 @@
                 <ul>
                     <li><a href="/?tab=<%= tab%>&page=1">«</a></li>
                     <% if((page-3)>1){ %>
-                    <li><a href="/?page=1">...</a></li>
+                    <li><a>...</a></li>
                     <% }%>
                     <%
                     var i = 3;
@@ -35,9 +35,9 @@
                     i++;
                     }%>
                     <% if((page+3)>pageCount){ %>
-                    <li><a href="/?page=1">...</a></li>
+                    <li><a>...</a></li>
                     <% }%>
-                    <li><a href="/?tab=<%= tab%>page=<%= pageCount%>">»</a></li>
+                    <li><a href="/?tab=<%= tab%>&page=<%= pageCount%>">»</a></li>
                 </ul>
             </div>
         </div>
